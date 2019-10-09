@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function App() {
+function Counter() {
   const [counter, setCounter] = useState(5);
   const [error, setError] = useState();
 
@@ -37,7 +37,7 @@ function App() {
 
 function rerender() {
   const rootElement = document.getElementById("root");
-  ReactDOM.render(<App />, rootElement);
+  ReactDOM.render(<Counter />, rootElement);
 }
 
 rerender();
