@@ -17,7 +17,7 @@ function Counter() {
           } else setError("value is too low");
         }}
       >
-        ⬇²
+        ⬇
       </button>
       {counter}
       <button
