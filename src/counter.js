@@ -3,13 +3,34 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function App() {
-  const [counter, setCounter] = useState(5);
-  const [error, setError] = useState();
+const statesCache = [];
+let hookIndex = 0;
+
+function _useState(initialValue) {
+  const hookId = hookIndex++;
+
+  if (statesCache[hookId]) {
+    return statesCache[hookId];
+  }
+
+  const setValue = newValue => {
+    statesCache[hookId][0] = newValue;
+    rerender();
+  };
+
+  const localState = [initialValue, setValue];
+  statesCache[hookId] = localState;
+  return localState;
+}
+
+export default function Counter() {
+  const [counter, setCounter] = _useState(5);
+  const [error, setError] = _useState();
 
   return (
     <div className="App">
       <button
+        aria-label="decrement"
         onClick={() => {
           if (counter > 0) {
             setCounter(counter - 1);
@@ -19,8 +40,9 @@ function App() {
       >
         ⬇
       </button>
-      {counter}
+      <span>{counter}</span>
       <button
+        aria-label="increment"
         onClick={() => {
           if (counter < 9) {
             setCounter(counter + 1);
@@ -36,8 +58,10 @@ function App() {
 }
 
 function rerender() {
+  hookIndex = 0;
   const rootElement = document.getElementById("root");
-  ReactDOM.render(<App />, rootElement);
+  ReactDOM.render(<Counter />, rootElement);
+  console.log(statesCache);
 }
 
-rerender();
+// rerender();
