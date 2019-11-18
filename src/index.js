@@ -36,8 +36,7 @@ function Counter() {
 }
 
 function rerender() {
-  const rootElement = document.getElementById("root");
-  ReactDOM.render(<Counter />, rootElement);
+  ReactDOM.render(<Counter />, document.getElementById("root"));
 }
 
 rerender();

@@ -10,3 +10,5 @@ A way to understand why react hooks can be conditional
 - add states cache
 - handle state exists in the cache
 - in `setValue`, update value from the statesCache
+
+=> useState can't be called conditionally
