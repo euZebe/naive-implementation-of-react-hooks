@@ -11,6 +11,7 @@ describe("useState", () => {
   it("should return an array containing the initial value and a function", () => {
     const [value, setValue] = useState(42);
     expect(value).toEqual(42);
+    expect(typeof setValue).toEqual("function");
   });
 
   it("should update value when calling setValue", () => {
@@ -20,6 +21,7 @@ describe("useState", () => {
 
     // setter called => second render
     [value, setValue] = useState(42);
+    console.log(statesCache);
     expect(value).toEqual(43);
   });
 
@@ -42,26 +44,26 @@ describe("useState", () => {
     expect(error).toEqual("You can't go higher");
   });
 
-  it("having conditional useState screws everything", () => {
-    let error, setError, counter, setCounter, otherValue, setOtherValue;
-
-    // first render
-    [counter, setCounter] = useState(9);
-    if (counter <= 9) {
-      [error, setError] = useState("Forbidden value");
-    }
-    [otherValue, setOtherValue] = useState(42);
-    console.table(statesCache);
-    setCounter(counter + 1);
-
-    // setter called => rerender
-    [counter, setCounter] = useState(9);
-    if (counter <= 9) {
-      [error, setError] = useState();
-    }
-    [otherValue, setOtherValue] = useState(42);
-    console.table(statesCache);
-
-    expect(otherValue).toEqual("Forbidden value");
-  });
+  // it.skip("having conditional useState screws everything", () => {
+    // let error, setError, counter, setCounter, otherValue, setOtherValue;
+    //
+    // // first render
+    // [counter, setCounter] = useState(9);
+    // if (counter <= 9) {
+    //   [error, setError] = useState("Forbidden value");
+    // }
+    // [otherValue, setOtherValue] = useState(42);
+    // console.table(statesCache);
+    // setCounter(counter + 1);
+    //
+    // // setter called => rerender
+    // [counter, setCounter] = useState(9);
+    // if (counter <= 9) {
+    //   [error, setError] = useState();
+    // }
+    // [otherValue, setOtherValue] = useState(42);
+    // console.table(statesCache);
+    //
+    // expect(otherValue).toEqual("Forbidden value");
+  // });
 });

@@ -35,23 +35,23 @@ function Counter() {
   );
 }
 
-export let statesCache = [];
-
-export let stateIndex = -1;
-
+export let statesCache = [
+  // 11
+  // undefined
+];
+let stateIndex = -1;
 export function useState(initialValue) {
   const stateId = ++stateIndex;
-  // if statesCache contains the current state, return it
   if (statesCache[stateId]) {
     return statesCache[stateId];
   }
-  // else create new state
+
   function setValue(newValue) {
     statesCache[stateId][0] = newValue;
     rerender();
   }
   const result = [initialValue, setValue];
-  statesCache[stateId] = result;
+  statesCache.push(result);
   return result;
 }
 
