@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 import "./styles.css";
@@ -35,33 +35,11 @@ function Counter() {
   );
 }
 
-export let statesCache = [
-  // 11
-  // undefined
-];
-let stateIndex = -1;
-export function useState(initialValue) {
-  const stateId = ++stateIndex;
-  if (statesCache[stateId]) {
-    return statesCache[stateId];
-  }
+export let statesCache = [];
 
-  function setValue(newValue) {
-    statesCache[stateId][0] = newValue;
-    rerender();
-  }
-  const result = [initialValue, setValue];
-  statesCache.push(result);
-  return result;
-}
-
-export function resetCache() {
-  statesCache = [];
-  stateIndex = -1;
-}
+export function resetCache() {}
 
 function rerender() {
-  stateIndex = -1;
   ReactDOM.render(<Counter />, document.getElementById("root"));
 }
 
